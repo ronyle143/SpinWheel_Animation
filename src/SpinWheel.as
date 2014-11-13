@@ -15,6 +15,9 @@ package
 	 */
 	public class SpinWheel extends Sprite
 	{
+		var paramObj:Object = LoaderInfo(this.root.loaderInfo).parameters.myVariable;
+		PICKER = paramObj.toString()
+		
 		[Embed(source="../images/wheel.png")]
 		public var SwWheel:Class;
 		public var wheel:DisplayObject  = new SwWheel;
@@ -42,6 +45,13 @@ package
 		public function SpinWheel() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		}
+		
+		public function setChance(x:int):void {
+			PICKER = x;
+			if (PICKER > 12) {
+				PICKER = 12;
+			}
 		}
 		
 		private function onAddedToStage(e:Event):void 
@@ -101,7 +111,7 @@ package
 			if (!spinning) {
 				spinning = true;
 				var spinTime = 2;
-				var endRot = 360*1 + gap;
+				var endRot = 360*6 + gap;
 				spinTween = new Tween(holder1, "rotation", Regular.easeOut, holder1.rotation, endRot, spinTime, true);
 				spinTween.addEventListener(TweenEvent.MOTION_FINISH, spinTween_finished);
 			}//*/
