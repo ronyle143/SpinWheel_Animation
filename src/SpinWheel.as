@@ -15,8 +15,6 @@ package
 	 */
 	public class SpinWheel extends Sprite
 	{
-		var paramObj:Object = LoaderInfo(this.root.loaderInfo).parameters.myVariable;
-		PICKER = paramObj.toString()
 		
 		[Embed(source="../images/wheel.png")]
 		public var SwWheel:Class;
@@ -41,6 +39,7 @@ package
 		public var STAGE_SIZE:Number = 614;
 		
 		private var _proxy:WebServiceProxy;
+		public var proxy:WebServiceProxy = new WebServiceProxy();
 		
 		public function SpinWheel() 
 		{
@@ -56,8 +55,16 @@ package
 		
 		private function onAddedToStage(e:Event):void 
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
+			proxy.initialize();
+			
+			proxy.addEventListener(WebServiceProxy.READY, generateUI);
+			
+			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		}
+		
+		private function generateUI(e:Event):void 
+		{
 			holder1.addChild(wheel);
 			wheel.x -= 307;
 			wheel.y -= 307;
@@ -73,13 +80,20 @@ package
 			CtaDef.y = (STAGE_SIZE - CtaDef.height) / 2;
 			addChild(holder);
 			button.addEventListener(MouseEvent.CLICK, spinWheel);
+			proxy.getRandomNumber();
 		}
 		
 		private function spinWheel(e:MouseEvent):void {
-			var gap = 150;
+			proxy.getRandomNumber();
+			//PICKER = proxy.randomInt();
+			PICKER = proxy.getrandomInt();
+			
+			var gap:Number = 150;
 			if (PICKER == 0) {
 				var pick:int = (Math.random() * 100) + 1;
-				trace(pick);
+				trace(PICKER+" - "+pick);
+			}else {
+				trace(PICKER+" - ##");
 			}
 			
 			if (PICKER == 6 || PICKER == 12 || pick > 99) {
@@ -110,8 +124,8 @@ package
 			
 			if (!spinning) {
 				spinning = true;
-				var spinTime = 2;
-				var endRot = 360*6 + gap;
+				var spinTime:Number = 2;
+				var endRot:Number = 360*6 + gap;
 				spinTween = new Tween(holder1, "rotation", Regular.easeOut, holder1.rotation, endRot, spinTime, true);
 				spinTween.addEventListener(TweenEvent.MOTION_FINISH, spinTween_finished);
 			}//*/
