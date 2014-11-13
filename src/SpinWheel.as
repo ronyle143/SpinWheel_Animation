@@ -35,6 +35,8 @@ package
 		
 		public var STAGE_SIZE:Number = 614;
 		
+		private var _proxy:WebServiceProxy;
+		
 		public function SpinWheel() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
