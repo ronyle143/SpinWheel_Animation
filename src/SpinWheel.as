@@ -33,6 +33,8 @@ package
 		public var spinTween:Tween;
 		public var startTime:Number;
 		
+		public var PICKER:int = 0;
+		
 		public var STAGE_SIZE:Number = 614;
 		
 		private var _proxy:WebServiceProxy;
@@ -64,27 +66,42 @@ package
 		}
 		
 		private function spinWheel(e:MouseEvent):void {
-			var pick:int = (Math.random() * 100) + 1;
-			var bonus = 0;
-			if (pick > 1) {
-				bonus += 30;
+			var gap = 150;
+			if (PICKER == 0) {
+				var pick:int = (Math.random() * 100) + 1;
+				trace(pick);
 			}
-			if (pick > 2) {
-				bonus += 30;
+			
+			if (PICKER == 6 || PICKER == 12 || pick > 99) {
+				trace("$500");
+				gap = 0;
+			}else
+			if (PICKER == 5 || PICKER == 11 || pick > 97) {
+				trace("$100");
+				gap = 60;
+			}else
+			if (PICKER == 4 || PICKER == 10 || pick > 92) {
+				trace("$50");
+				gap = 120;
+			}else
+			if (PICKER == 3 || PICKER == 9 || pick > 85) {
+				trace("$20");
+				gap = 90;
+			}else
+			if (PICKER == 2 || PICKER == 8 || pick > 75) {
+				trace("$10");
+				gap = 30;
+			}else
+			if (PICKER == 1 || PICKER == 7 || pick <= 75) {
+				trace("$5");
+				gap = 150;
 			}
-			if (pick > 5) {
-				bonus += 30;
-			}
-			if (pick > 7) {
-				bonus += 30;
-			}
-			if (pick > 10) {
-				bonus += 30;
-			}
+			
+			
 			if (!spinning) {
 				spinning = true;
 				var spinTime = 2;
-				var endRot = 360*1 + bonus;
+				var endRot = 360*1 + gap;
 				spinTween = new Tween(holder1, "rotation", Regular.easeOut, holder1.rotation, endRot, spinTime, true);
 				spinTween.addEventListener(TweenEvent.MOTION_FINISH, spinTween_finished);
 			}//*/
@@ -92,7 +109,6 @@ package
 		
 		private function spinTween_finished(e:TweenEvent):void
 		{
-			trace("4");
 			spinning = false;
 		}	
 	}
