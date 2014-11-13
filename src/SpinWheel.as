@@ -25,6 +25,9 @@ package
 		[Embed(source="../images/cta_alt.png")]
 		public var Cta2:Class;
 		public var CtaAlt:DisplayObject  = new Cta2;
+		[Embed(source="../images/arrow.png")]
+		public var arr:Class;
+		public var Arrow:DisplayObject  = new arr;
 		
         public var holder:Sprite = new Sprite();  
 		public var holder1:Sprite = new Sprite();  
@@ -79,44 +82,48 @@ package
 			CtaDef.x = (STAGE_SIZE - CtaDef.width) / 2;
 			CtaDef.y = (STAGE_SIZE - CtaDef.height) / 2;
 			addChild(holder);
+			Arrow.x = (STAGE_SIZE - Arrow.width);
+			Arrow.y = (STAGE_SIZE - Arrow.height)/2;
+			addChild(Arrow);
 			button.addEventListener(MouseEvent.CLICK, spinWheel);
 			proxy.getRandomNumber();
+			
+			
+		}
+		
+		private function loop(e:Event):void 
+		{
+			trace(holder1.rotation);
 		}
 		
 		private function spinWheel(e:MouseEvent):void {
+			addEventListener(Event.ENTER_FRAME, loop);
 			proxy.getRandomNumber();
 			//PICKER = proxy.randomInt();
 			PICKER = proxy.getrandomInt();
 			
-			var gap:Number = 150;
-			if (PICKER == 0) {
-				var pick:int = (Math.random() * 100) + 1;
-				trace(PICKER+" - "+pick);
-			}else {
-				trace(PICKER+" - ##");
-			}
-			
-			if (PICKER == 6 || PICKER == 12 || pick > 99) {
+			var gap:Number = 150;	
+			if (PICKER == 6 || PICKER == 12) {
 				trace("$500");
 				gap = 0;
 			}else
-			if (PICKER == 5 || PICKER == 11 || pick > 97) {
+			if (PICKER == 5 || PICKER == 11) {
 				trace("$100");
 				gap = 60;
 			}else
-			if (PICKER == 4 || PICKER == 10 || pick > 92) {
+			if (PICKER == 4 || PICKER == 10) {
 				trace("$50");
 				gap = 120;
 			}else
-			if (PICKER == 3 || PICKER == 9 || pick > 85) {
+			if (PICKER == 3 || PICKER == 9) {
 				trace("$20");
 				gap = 90;
 			}else
-			if (PICKER == 2 || PICKER == 8 || pick > 75) {
+			if (PICKER == 2 || PICKER == 8) {
 				trace("$10");
 				gap = 30;
 			}else
-			if (PICKER == 1 || PICKER == 7 || pick <= 75) {
+			if (PICKER == 1 || PICKER == 7) {
 				trace("$5");
 				gap = 150;
 			}
@@ -129,6 +136,7 @@ package
 				spinTween = new Tween(holder1, "rotation", Regular.easeOut, holder1.rotation, endRot, spinTime, true);
 				spinTween.addEventListener(TweenEvent.MOTION_FINISH, spinTween_finished);
 			}//*/
+			removeEventListener(Event.ENTER_FRAME, loop);
 		}
 		
 		private function spinTween_finished(e:TweenEvent):void

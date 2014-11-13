@@ -5,7 +5,7 @@
     <movie outputType="Application" />
     <movie input="" />
     <movie path="bin\SpinWheel.swf" />
-    <movie fps="30" />
+    <movie fps="60" />
     <movie width="614" />
     <movie height="614" />
     <movie version="10" />

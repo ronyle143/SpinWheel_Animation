@@ -82,7 +82,7 @@ package {
 		}
 		
 		
-		public function get randomInt():int {
+		public function getrandomInt():int {
 			return _randomInt;
 		}
 		
