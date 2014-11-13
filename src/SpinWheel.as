@@ -64,34 +64,42 @@ package
 		}
 		
 		private function spinWheel(e:MouseEvent):void {
+			var gap = 150;
 			if (PICKER == 0) {
 				var pick:int = (Math.random() * 100) + 1;
 				trace(pick);
 			}
+			
 			if (PICKER == 6 || PICKER == 12 || pick > 99) {
 				trace("$500");
+				gap = 0;
 			}else
 			if (PICKER == 5 || PICKER == 11 || pick > 97) {
 				trace("$100");
+				gap = 60;
 			}else
 			if (PICKER == 4 || PICKER == 10 || pick > 92) {
 				trace("$50");
+				gap = 120;
 			}else
 			if (PICKER == 3 || PICKER == 9 || pick > 85) {
 				trace("$20");
+				gap = 90;
 			}else
 			if (PICKER == 2 || PICKER == 8 || pick > 75) {
 				trace("$10");
+				gap = 30;
 			}else
 			if (PICKER == 1 || PICKER == 7 || pick <= 75) {
 				trace("$5");
+				gap = 150;
 			}
 			
 			
 			if (!spinning) {
 				spinning = true;
 				var spinTime = 2;
-				var endRot = 360*1 ;
+				var endRot = 360*1 + gap;
 				spinTween = new Tween(holder1, "rotation", Regular.easeOut, holder1.rotation, endRot, spinTime, true);
 				spinTween.addEventListener(TweenEvent.MOTION_FINISH, spinTween_finished);
 			}//*/
