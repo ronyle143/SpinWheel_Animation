@@ -37,7 +37,6 @@ package
 		public var shad:Class;
 		public var Shadow:DisplayObject  = new shad;
 		public var Result:TextField = new TextField;
-		public var txt:TextField = new TextField;
 		
         public var holder:Sprite = new Sprite();  
 		public var holder1:Sprite = new Sprite();  
@@ -63,10 +62,6 @@ package
 		private function onAddedToStage(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			
-			txt.text = "WSDL Loading\n" + Settings.USERNAME+", " + Settings.PASSWORD;
-txt.visible = false;
-			addChild(txt);
 			
 			proxy.initialize();
 			proxy.addEventListener(WebServiceProxy.READY, generateUI);
@@ -98,7 +93,6 @@ txt.visible = false;
 			addChild(Arrow);
 			Shadow.alpha = 0.8;
 			shadowholder.addChild(Shadow);
-			txt.text = "WSDL Loaded\n" + Settings.USERNAME+", " + Settings.PASSWORD;
 			
 			var myFormat:TextFormat = new TextFormat();
 			myFormat.size = 150;
