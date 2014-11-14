@@ -37,7 +37,7 @@ package
 		public var spinTween:Tween;
 		public var startTime:Number;
 		
-		public var PICKER:int = 0;
+		public var PICKER:int = 1;
 		
 		public var STAGE_SIZE:Number = 614;
 		
@@ -49,21 +49,12 @@ package
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
 		
-		public function setChance(x:int):void {
-			PICKER = x;
-			if (PICKER > 12) {
-				PICKER = 12;
-			}
-		}
-		
 		private function onAddedToStage(e:Event):void 
 		{
+			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
 			proxy.initialize();
-			
 			proxy.addEventListener(WebServiceProxy.READY, generateUI);
-			
-			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
 		
 		private function generateUI(e:Event):void 
@@ -81,6 +72,10 @@ package
 			holder.addChild(button);
 			CtaDef.x = (STAGE_SIZE - CtaDef.width) / 2;
 			CtaDef.y = (STAGE_SIZE - CtaDef.height) / 2;
+			holder.addChild(CtaAlt);
+			CtaAlt.x = (STAGE_SIZE - CtaAlt.width) / 2;
+			CtaAlt.y = (STAGE_SIZE - CtaAlt.height) / 2;
+			CtaAlt.visible = false;
 			addChild(holder);
 			Arrow.x = (STAGE_SIZE - Arrow.width);
 			Arrow.y = (STAGE_SIZE - Arrow.height)/2;
@@ -89,11 +84,6 @@ package
 			proxy.getRandomNumber();
 			
 			
-		}
-		
-		private function loop(e:Event):void 
-		{
-			trace(holder1.rotation);
 		}
 		
 		private function spinWheel(e:MouseEvent):void {
@@ -122,8 +112,7 @@ package
 			if (PICKER == 2 || PICKER == 8) {
 				trace("$10");
 				gap = 30;
-			}else
-			if (PICKER == 1 || PICKER == 7) {
+			}else{
 				trace("$5");
 				gap = 150;
 			}
@@ -131,16 +120,33 @@ package
 			
 			if (!spinning) {
 				spinning = true;
-				var spinTime:Number = 2;
-				var endRot:Number = 360*6 + gap;
+				var spinTime:Number = 7;
+				var endRot:Number = 360*5 + gap;
 				spinTween = new Tween(holder1, "rotation", Regular.easeOut, holder1.rotation, endRot, spinTime, true);
 				spinTween.addEventListener(TweenEvent.MOTION_FINISH, spinTween_finished);
 			}//*/
-			removeEventListener(Event.ENTER_FRAME, loop);
+			
+		}
+		
+		private function loop(e:Event):void 
+		{
+			if ((holder1.rotation % 30 < 20 && holder1.rotation % 30 > 10) || (holder1.rotation % 30 < -10 && holder1.rotation % 30 > -20)) {
+				Arrow.rotation = -10;
+				Arrow.y = ((STAGE_SIZE - Arrow.height) / 2) + 20;
+				CtaAlt.visible = true;
+			}else {
+				Arrow.rotation = 0;
+				Arrow.y = ((STAGE_SIZE - Arrow.height) / 2);
+				CtaAlt.visible = false;
+			}
+			//trace(holder1.rotation  % 30);
 		}
 		
 		private function spinTween_finished(e:TweenEvent):void
 		{
+			Arrow.rotation = 0;
+			Arrow.y = ((STAGE_SIZE - Arrow.height)/2);
+			removeEventListener(Event.ENTER_FRAME, loop);
 			spinning = false;
 		}	
 	}
