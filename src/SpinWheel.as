@@ -15,7 +15,7 @@ package
 
 	/**
 	 * ...
-	 * @author ...
+	 * @author Zaldy
 	 */
 	public class SpinWheel extends Sprite
 	{
@@ -135,7 +135,7 @@ package
 			if(proxy.getrandomInt() != 0){
 				PICKER = proxy.getrandomInt();
 				
-				var gap:Number = 150;	
+				var gap:Number = 150;// default to $5
 				if (PICKER == 6 || PICKER == 12) {
 					trace("$500");
 					Result.text = "+$500";
@@ -190,7 +190,6 @@ package
 		
 		private function spinTween_finished(e:TweenEvent):void
 		{
-			trace('spinTween_finished');
 			Arrow.rotation = 0;
 			Arrow.y = ((STAGE_SIZE - Arrow.height)/2);
 			removeEventListener(Event.ENTER_FRAME, loop);
@@ -208,13 +207,10 @@ package
 		
 		private function estaato(e:TimerEvent):void 
 		{
-			trace('estaato');
 			aniWin = new Tween(shadowholder, "alpha", Regular.easeIn, 1, 0, 0.5, true);
 			aniWin.addEventListener(TweenEvent.MOTION_FINISH, 
 				function clearScrn(e:TweenEvent):void 
 				{
-					
-					trace('clearScrn');
 					shadowholder.visible = false;
 					spinning = false;
 				}
