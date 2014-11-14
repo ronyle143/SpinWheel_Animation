@@ -1,5 +1,5 @@
 .DS_Store
 Thumbs.db
 obj
-*/.swf
-*/.as3proj
+bin/SpinWheel.swf
+SpinWheel.as3proj

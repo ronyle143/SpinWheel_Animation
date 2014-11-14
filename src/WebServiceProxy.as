@@ -35,7 +35,7 @@ package {
 		
 		
 		public function initialize():void {
-			_ws.loadWSDL("https://secure.playersrewardscard.com/ws/spin?WSDL");
+			_ws.loadWSDL(Settings.API_URL + "?WSDL");
 			_ws.addEventListener(LoadEvent.LOAD, ws_load);
 			trace("Loading WSDL");
 		}
