@@ -2,6 +2,8 @@ package
 {
 	import flash.display.*;
 	import flash.events.*;
+	import flash.filters.BlurFilter;
+	import flash.filters.DropShadowFilter;
 	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
@@ -87,11 +89,13 @@ package
 		{
 			trace("READY!");
 			holder1.addChild(wheel);
-			wheel.x -= 307;
-			wheel.y -= 307;
+			wheel.width =STAGE_SIZE;
+			wheel.height = STAGE_SIZE;
+			wheel.x -= STAGE_SIZE / 2;
+			wheel.y -= STAGE_SIZE / 2;
 			holder.addChild(holder1);
-			holder1.x += 307;
-			holder1.y += 307;
+			holder1.x += STAGE_SIZE / 2;
+			holder1.y += STAGE_SIZE / 2;
 			holder.addChild(CtaAlt);
 			CtaAlt.x = (STAGE_SIZE - CtaAlt.width) / 2;
 			CtaAlt.y = (STAGE_SIZE - CtaAlt.height) / 2;
@@ -108,6 +112,8 @@ package
 			Arrow.y = (STAGE_SIZE - Arrow.height)/2;
 			addChild(Arrow);
 			Shadow.alpha = 0.8;
+			Shadow.width =STAGE_SIZE;
+			Shadow.height = STAGE_SIZE;
 			shadowholder.addChild(Shadow);
 			
 			var myFormat:TextFormat = new TextFormat();
@@ -119,8 +125,10 @@ package
 			Result.text = "+$500";
 			Result.autoSize = TextFieldAutoSize.CENTER;
 			Result.x = (STAGE_SIZE - Result.width) / 2;
-			Result.y = (STAGE_SIZE - Result.height) / 2;
+			Result.y = (STAGE_SIZE - Result.height) / 2;//15,45,10,0.5, 10.0, 10.0,1.0
 			Result.mouseEnabled = false;
+			var dropshadow:BlurFilter = new BlurFilter();
+			Shadow.filters = [dropshadow];
 			shadowholder.addChild(Result);
 			
 			addChild(shadowholder);
