@@ -52,6 +52,7 @@ package
 		public var PICKER:int = 1;
 		
 		private var _proxy:WebServiceProxy;
+		private var text1:String;
 		public var proxy:WebServiceProxy = new WebServiceProxy();
 		
 		public function SpinWheel() 
@@ -63,8 +64,23 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
+			this.loaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
+						
 			proxy.initialize();
 			proxy.addEventListener(WebServiceProxy.READY, generateUI);
+		}
+		
+		private function loaderComplete(e:Event):void 
+		{
+			trace("LoaderComplete");
+			var ping:TextField = new TextField;
+			ping.text = "x:";
+			var paramObj:Object = LoaderInfo(this.root.loaderInfo).parameters;
+			ping.text += " "+paramObj.USERNAME + ", "+paramObj.PASSWORD; 
+			//addChild(ping);
+			Settings.USERNAME = paramObj.USERNAME;
+			Settings.PASSWORD = paramObj.PASSWORD;
+			Settings.API_URL = paramObj.API_URL;
 		}
 		
 		private function generateUI(e:Event):void 
