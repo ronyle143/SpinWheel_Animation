@@ -64,7 +64,8 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
-			txt.text = "WSDL Loading";
+			txt.text = "WSDL Loading\n" + Settings.USERNAME+", " + Settings.PASSWORD;
+txt.visible = false;
 			addChild(txt);
 			
 			proxy.initialize();
@@ -97,7 +98,7 @@ package
 			addChild(Arrow);
 			Shadow.alpha = 0.8;
 			shadowholder.addChild(Shadow);
-			txt.text = "WSDL Loaded";
+			txt.text = "WSDL Loaded\n" + Settings.USERNAME+", " + Settings.PASSWORD;
 			
 			var myFormat:TextFormat = new TextFormat();
 			myFormat.size = 150;
