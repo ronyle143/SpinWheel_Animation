@@ -35,25 +35,13 @@
         <link rel="stylesheet" type="text/css" href="history/history.css" />
         <script type="text/javascript" src="history/history.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-		<script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
 		<!-- <script type="text/javascript" src="FBJSBridge.js"></script>  -->
         <!-- END Browser History required section -->  
             
         <script type="text/javascript" src="swfobject.js"></script>
         
         <script type="text/javascript">
-	        function redirect(id,perms,uri) {
-	            var params = window.location.toString().slice(window.location.toString().indexOf('?'));
-	            top.location = 'https://graph.facebook.com/oauth/authorize?client_id='+id+'&scope='+perms+'&redirect_uri='+uri+params;				 
-	        }
-			
-			function deleteRequest(requestId) {
-				FB.api(requestId, 'delete', function(response) {
-					console.log(response);
-				});
-			}
-	        
-            // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
+	       // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
             var swfVersionStr = "11.3.0";
             // To use express install, set to playerProductInstall.swf, otherwise the empty string. 
             var xiSwfUrlStr = "playerProductInstall.swf";
@@ -66,7 +54,7 @@
             params.bgcolor = "#FFFFFF";
             params.allowscriptaccess = "sameDomain";
             params.allowfullscreen = "true";
-            params.wmode = "direct";
+            params.wmode = "transparent";
             var attributes = {};
             attributes.id = "SpinWheel";
             attributes.name = "SpinWheel";
@@ -80,7 +68,7 @@
             swfobject.createCSS("#flashContent", "display:block;text-align:left;");
         </script>
     </head>
-    <body style="background-color: #FFFFFF">
+    <body style="background-color: #000000">
 		<div id="fb-root"></div>
         <!-- SWFObject's dynamic embed method replaces this alternative HTML content with Flash content when enough 
              JavaScript and Flash plug-in support is available. The div is initially hidden so that it doesn't show
@@ -108,7 +96,7 @@
                 <param name="bgcolor" value="#FFFFFF" />
                 <param name="allowScriptAccess" value="sameDomain" />
                 <param name="allowFullScreen" value="true" />
-                <param name="wmode" value="direct" />
+                <param name="wmode" value="transparent" />
 				 <param name="FlashVars" value="PASSWORD=unetof66&USERNAME=spinuser&API_URL=https://secure.playersrewardscard.com/ws/spin" />
                 <!--[if !IE]>-->
                 <object type="application/x-shockwave-flash" data="SpinWheel.swf?v=1.0" width="614" height="960">
@@ -116,7 +104,7 @@
                     <param name="bgcolor" value="#FFFFFF" />
                     <param name="allowScriptAccess" value="sameDomain" />
                     <param name="allowFullScreen" value="true" />
-                    <param name="wmode" value="direct" />
+                    <param name="wmode" value="transparent" />
 					<param name="FlashVars" value="PASSWORD=unetof66&USERNAME=spinuser&API_URL=https://secure.playersrewardscard.com/ws/spin" />
                 <!--<![endif]-->
                 <!--[if gte IE 6]>-->
