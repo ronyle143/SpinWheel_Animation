@@ -31,12 +31,12 @@ package
 		[Embed(source="../images/cta_alt.png")]
 		public var Cta2:Class;
 		public var CtaAlt:DisplayObject  = new Cta2;
-		[Embed(source="../images/arrow.png")]
+		[Embed(source="../images/arrow.svg")]
 		public var arr:Class;
-		public var Arrow:DisplayObject  = new arr;
-		[Embed(source="../images/shadowl.png")]
+		public var Arrow:Sprite  = new arr;
+		[Embed(source="../images/shadowl.svg")]
 		public var shad:Class;
-		public var Shadow:DisplayObject  = new shad;
+		public var Shadow:Sprite  = new shad;
 		public var Result:TextField = new TextField;
 		
         public var holder:Sprite = new Sprite();  
