@@ -6,6 +6,8 @@ package
 	import flash.filters.DropShadowFilter;
 	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
+	import flash.net.navigateToURL;
+	import flash.net.URLRequest;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
@@ -25,12 +27,12 @@ package
 		[Embed(source="../images/wheel.svg")]
 		public var SwWheel:Class;
 		public var wheel:Sprite  = new SwWheel;
-		[Embed(source="../images/cta_def.png")]
+		[Embed(source="../images/cta_def.svg")]
 		public var Cta1:Class;
-		public var CtaDef:DisplayObject  = new Cta1;
+		public var CtaDef:Sprite  = new Cta1;
 		[Embed(source="../images/cta_alt.png")]
 		public var Cta2:Class;
-		public var CtaAlt:DisplayObject  = new Cta2;
+		public var CtaAlt:DisplayObject = new Cta2;
 		[Embed(source="../images/arrow.svg")]
 		public var arr:Class;
 		public var Arrow:Sprite  = new arr;
@@ -55,6 +57,7 @@ package
 		private var _proxy:WebServiceProxy;
 		private var text1:String;
 		public var proxy:WebServiceProxy = new WebServiceProxy();
+		public var rd:URLredirect = new URLredirect();
 		
 		public function SpinWheel() 
 		{
@@ -75,9 +78,9 @@ package
 		{
 			trace("LoaderComplete");
 			var ping:TextField = new TextField;
-			ping.text = "x:";
+			ping.text = "";
 			var paramObj:Object = LoaderInfo(this.root.loaderInfo).parameters;
-			ping.text += " "+paramObj.USERNAME + ", "+paramObj.PASSWORD; 
+			ping.text = "x: "+paramObj.USERNAME + ", "+paramObj.PASSWORD; 
 			//addChild(ping);
 			Settings.USERNAME = paramObj.USERNAME;
 			Settings.PASSWORD = paramObj.PASSWORD;
@@ -133,7 +136,7 @@ package
 			addChild(shadowholder);
 			shadowholder.visible = false;
 			button.addEventListener(MouseEvent.MOUSE_DOWN, spinWheelpressed);
-			button.addEventListener(MouseEvent.MOUSE_UP, spinWheel);
+			button.addEventListener(MouseEvent.MOUSE_UP, spinWheelreleased);
 			button.addEventListener(MouseEvent.MOUSE_OUT, spinWheelaway);
 		}
 		
@@ -147,7 +150,7 @@ package
 			CtaAlt.visible = true;
 		}
 		
-		private function spinWheel(e:MouseEvent):void {
+		private function spinWheelreleased(e:MouseEvent):void {
 			CtaAlt.visible = false;
 			if (!spinning) {
 				spinning = true;
@@ -227,6 +230,8 @@ package
 				{
 					shadowholder.visible = false;
 					spinning = false;
+					navigateToURL(new URLRequest(URLredirect.link), "_self");
+					
 				}
 			);
 		}
