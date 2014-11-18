@@ -110,6 +110,8 @@ package
 			CtaAlt.y = (STAGE_SIZE - CtaAlt.height) / 2;
 			CtaAlt.visible = false;
 			addChild(holder);
+			Arrow.width = 65;
+			Arrow.height = 48;
 			Arrow.x = (STAGE_SIZE - Arrow.width);
 			Arrow.y = (STAGE_SIZE - Arrow.height)/2;
 			addChild(Arrow);
