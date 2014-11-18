@@ -22,10 +22,9 @@ package
 	public class SpinWheel extends Sprite
 	{
 		public var STAGE_SIZE:Number = 614;
-		
-		[Embed(source="../images/wheel.png")]
+		[Embed(source="../images/wheel.svg")]
 		public var SwWheel:Class;
-		public var wheel:DisplayObject  = new SwWheel;
+		public var wheel:Sprite  = new SwWheel;
 		[Embed(source="../images/cta_def.png")]
 		public var Cta1:Class;
 		public var CtaDef:DisplayObject  = new Cta1;
@@ -133,15 +132,25 @@ package
 			
 			addChild(shadowholder);
 			shadowholder.visible = false;
-			button.addEventListener(MouseEvent.CLICK, spinWheel);
-			
-			
+			button.addEventListener(MouseEvent.MOUSE_DOWN, spinWheelpressed);
+			button.addEventListener(MouseEvent.MOUSE_UP, spinWheel);
+			button.addEventListener(MouseEvent.MOUSE_OUT, spinWheelaway);
+		}
+		
+		private function spinWheelaway(e:MouseEvent):void 
+		{
+			CtaAlt.visible = false;
+		}
+		
+		private function spinWheelpressed(e:MouseEvent):void 
+		{
+			CtaAlt.visible = true;
 		}
 		
 		private function spinWheel(e:MouseEvent):void {
+			CtaAlt.visible = false;
 			if (!spinning) {
 				spinning = true;
-				addEventListener(Event.ENTER_FRAME, loop);
 				proxy.getRandomNumber();
 				//PICKER = proxy.randomInt();
 				proxy.addEventListener(WebServiceProxy.RANDOM_NUMBER_GENERATED, spinIt);
@@ -194,24 +203,10 @@ package
 			}
 		}
 		
-		private function loop(e:Event):void 
-		{
-			if ((holder1.rotation % 30 < 20 && holder1.rotation % 30 > 10) || (holder1.rotation % 30 < -10 && holder1.rotation % 30 > -20)) {
-				Arrow.rotation = -10;
-				Arrow.y = ((STAGE_SIZE - Arrow.height) / 2) + 20;
-				CtaAlt.visible = true;
-			}else {
-				Arrow.rotation = 0;
-				Arrow.y = ((STAGE_SIZE - Arrow.height) / 2);
-				CtaAlt.visible = false;
-			}
-		}
-		
 		private function spinTween_finished(e:TweenEvent):void
 		{
 			Arrow.rotation = 0;
 			Arrow.y = ((STAGE_SIZE - Arrow.height)/2);
-			removeEventListener(Event.ENTER_FRAME, loop);
 			shadowholder.visible = true;
 			aniWin = new Tween(shadowholder, "alpha", Regular.easeIn, 0, 1, 0.5, true);
 			var myTimer:Timer = new Timer(1000, 4);
